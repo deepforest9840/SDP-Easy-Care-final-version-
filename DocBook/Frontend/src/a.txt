@@ -1,0 +1,65 @@
+import React, { useState } from "react";
+
+const ApplyAppointmentForm = () => {
+  const [name, setName] = useState(""); // Hospital name
+  const [area, setArea] = useState(""); // Hospital area
+  const [hospitalId, setHospitalId] = useState(null); // Fetched hospital ID
+  const [error, setError] = useState(null);
+
+  const fetchHospitalId = async () => {
+    try {
+      setError(null); // Reset error
+      const response = await fetch(
+        `http://localhost:9191/api/hospitals/by-name-and-area?name=${name}&area=${area}`
+      );
+      if (response.ok) {
+        const id = await response.json(); // Extract hospital ID
+        setHospitalId(id);
+      } else {
+        throw new Error("Hospital not found!");
+      }
+    } catch (err) {
+      setError(err.message);
+      setHospitalId(null); // Clear hospital ID on error
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetchHospitalId();
+  };
+
+  return (
+    <div>
+      <h2>Apply for Appointment</h2>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label>Hospital Name:</label>
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Enter hospital name"
+            required
+          />
+        </div>
+        <div>
+          <label>Hospital Area:</label>
+          <input
+            type="text"
+            value={area}
+            onChange={(e) => setArea(e.target.value)}
+            placeholder="Enter hospital area"
+            required
+          />
+        </div>
+        <button type="submit">Find Hospital</button>
+      </form>
+      {hospitalId && <p>Hospital ID: {hospitalId}</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+    </div>
+  );
+};
+
+export default ApplyAppointmentForm;
+

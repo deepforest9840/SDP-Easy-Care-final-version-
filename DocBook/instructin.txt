@@ -1,0 +1,11 @@
+feature.( not in the video)
+1.you can check you disease..(diseases checker)
+how to run>>
+on backend..
+1.first make you database ase user and crete database from the application properties files
+2.then run  ./mvnw spring-boot:run
+from frontend:
+1.npm install
+2.npm run dev
+
+

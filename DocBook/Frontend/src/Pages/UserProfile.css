@@ -1,0 +1,17 @@
+.status-pending {
+    color: rgb(3, 36, 13);
+    font-weight: bold;
+    font-style:inherit;
+    
+  }
+  
+  .status-completed {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .status-cancelled {
+    color: red;
+    font-weight: bold;
+    font-style: italic;
+  }
